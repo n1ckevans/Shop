@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shop.Domain.Models;
 
 namespace Shop.Application.Cart
 {
@@ -43,7 +44,21 @@ namespace Shop.Application.Cart
 
         public void Do(Request request)
         {
-            var stringObject = JsonConvert.SerializeObject(request);
+            var customerInformation = new CustomerInformation
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                Address1 = request.Address1,
+                Address2 = request.Address2,
+                City = request.City,
+                State = request.State,
+                ZipCode = request.ZipCode
+
+            };
+
+            var stringObject = JsonConvert.SerializeObject(customerInformation);
 
             _session.SetString("customer-info", stringObject);
         }

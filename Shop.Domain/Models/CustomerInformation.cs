@@ -1,17 +1,14 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shop.Domain.Models
 {
-    public class Order
+    public class CustomerInformation
     {
-        public int Id { get; set; }
-        public string OrderRef { get; set; }
-        public string StripeReference { get; set; }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -21,7 +18,5 @@ namespace Shop.Domain.Models
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-
-        public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }
