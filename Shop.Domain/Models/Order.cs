@@ -22,6 +22,6 @@ namespace Shop.Domain.Models
         public string State { get; set; }
         public string ZipCode { get; set; }
 
-        public ICollection<OrderProduct> OrderProducts { get; set; }
+        public ICollection<OrderStock> OrderStocks { get; set; }
     }
 }

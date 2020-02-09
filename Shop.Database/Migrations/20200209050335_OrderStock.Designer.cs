@@ -10,8 +10,8 @@ using Shop.Database;
 namespace Shop.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200206073238_init")]
-    partial class init
+    [Migration("20200209050335_OrderStock")]
+    partial class OrderStock
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,6 +182,54 @@ namespace Shop.Database.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Shop.Domain.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address1");
+
+                    b.Property<string>("Address2");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("OrderRef");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("StripeReference");
+
+                    b.Property<string>("ZipCode");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Models.OrderStock", b =>
+                {
+                    b.Property<int>("StockId");
+
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("StockId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderStocks");
+                });
+
             modelBuilder.Entity("Shop.Domain.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -197,6 +245,25 @@ namespace Shop.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Shop.Domain.Models.Stock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -241,6 +308,27 @@ namespace Shop.Database.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Shop.Domain.Models.OrderStock", b =>
+                {
+                    b.HasOne("Shop.Domain.Models.Order", "Order")
+                        .WithMany("OrderStocks")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Shop.Domain.Models.Stock", "Stock")
+                        .WithMany("OrderStocks")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Shop.Domain.Models.Stock", b =>
+                {
+                    b.HasOne("Shop.Domain.Models.Product", "Product")
+                        .WithMany("Stock")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
