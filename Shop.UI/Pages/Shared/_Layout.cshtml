@@ -16,6 +16,8 @@
 </head>
 <body>
     <a asp-page="/Admin/Index">Admin</a>
+    <a asp-page="/Accounts/Login">Sign In</a>
+    <a asp-controller="Account" asp-action="Logout">Sign Out</a>
 
     <partial name="_CookieConsentPartial" />
 
@@ -26,8 +28,8 @@
             <p>&copy; 2020 - Shop.UI</p>
         </footer>
     </div>
-    
-   
+
+
 
     <environment include="Development">
         <script src="~/js/site.js" asp-append-version="true"></script>
