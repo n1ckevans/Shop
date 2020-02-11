@@ -27,8 +27,9 @@ namespace Shop.Application.Cart
         {
             public string Name { get; set; }
             public string Price { get; set; }
-            public int StockId { get; set; }
+            public decimal RealPrice { get; set; }
             public int Quantity { get; set; }
+            public int StockId { get; set; }
         }
 
         public IEnumerable<Response> Do()
@@ -46,7 +47,8 @@ namespace Shop.Application.Cart
                 .Select(x => new Response
                 {
                     Name = x.Product.Name,
-                    Price = $"$ {x.Product.Price.ToString("N2")}",
+                    Price = $"${x.Product.Price.ToString("N2")}",
+                    RealPrice = x.Product.Price,   
                     StockId = x.Id,
                     Quantity = cartList.FirstOrDefault(y => y.StockId == x.Id).Quantity
                 })

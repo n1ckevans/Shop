@@ -22,7 +22,7 @@ namespace Shop.Application.Products
             {
                 Name = x.Name,
                 Description = x.Description,
-                Price = $"$ {x.Price.ToString("N2")}", //110.50 => 1,100.50 => $1,100.50
+                Price = $"${x.Price.ToString("N2")}", //110.50 => 1,100.50 => $1,100.50
             });
 
 
