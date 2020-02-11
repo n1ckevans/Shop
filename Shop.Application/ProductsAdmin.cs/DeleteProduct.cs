@@ -17,7 +17,7 @@ namespace Shop.Application.ProductsAdmin
             _context = context;
         }
 
-        public async Task<bool> Do(int Id)
+        public async Task<bool> DoAsync(int Id)
         {
             var Product = _context.Products.FirstOrDefault(x => x.Id == Id);
             _context.Products.Remove(Product);

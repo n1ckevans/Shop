@@ -78,7 +78,7 @@ namespace Shop.UI
 
             StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
 
-            services.AddTransient<CreateUser>();
+            services.AddApplicationServices();
 
         }
 

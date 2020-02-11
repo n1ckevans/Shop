@@ -17,7 +17,7 @@ namespace Shop.Application.OrdersAdmin
             _ctx = ctx;
         }
 
-        public async Task<bool> Do(int id)
+        public async Task<bool> DoAsync(int id)
         {
             var order = _ctx.Orders.FirstOrDefault(x => x.Id == id);
 

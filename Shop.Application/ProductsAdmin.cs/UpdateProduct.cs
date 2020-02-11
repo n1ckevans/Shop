@@ -17,7 +17,7 @@ namespace Shop.Application.ProductsAdmin
             _context = context;
         }
 
-        public async Task<Response> Do(Request request)
+        public async Task<Response> DoAsync(Request request)
         {
             var product = _context.Products.FirstOrDefault(x => x.Id == request.Id);
 

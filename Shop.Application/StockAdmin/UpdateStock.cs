@@ -17,7 +17,7 @@ namespace Shop.Application.StockAdmin
             _ctx = ctx;
         }
 
-        public async Task<Response> Do(Request request)
+        public async Task<Response> DoAsync(Request request)
         {
             var stocks = new List<Stock>();
 

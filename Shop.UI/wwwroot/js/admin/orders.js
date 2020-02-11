@@ -3,6 +3,7 @@
     data: {
         status: 0,
         loading: false,
+        orders: [],
         selectedOrder: null
     },
     mounted() {

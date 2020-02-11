@@ -17,7 +17,7 @@ namespace Shop.Application.StockAdmin
             _ctx = ctx;
         }
 
-        public async Task<bool> Do(int id)
+        public async Task<bool> DoAsync(int id)
         {
             var stock = _ctx.Stock.FirstOrDefault(x => x.Id == id);
 
