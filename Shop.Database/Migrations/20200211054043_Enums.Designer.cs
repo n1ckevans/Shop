@@ -10,8 +10,8 @@ using Shop.Database;
 namespace Shop.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200209191411_StockOnHold")]
-    partial class StockOnHold
+    [Migration("20200211054043_Enums")]
+    partial class Enums
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -206,6 +206,8 @@ namespace Shop.Database.Migrations
 
                     b.Property<string>("State");
 
+                    b.Property<int>("Status");
+
                     b.Property<string>("StripeReference");
 
                     b.Property<string>("ZipCode");
@@ -276,13 +278,15 @@ namespace Shop.Database.Migrations
 
                     b.Property<int>("Quantity");
 
+                    b.Property<string>("SessionId");
+
                     b.Property<int>("StockId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("StockOnHolds");
+                    b.ToTable("StockOnHold");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

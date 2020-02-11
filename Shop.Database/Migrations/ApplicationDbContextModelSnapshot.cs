@@ -204,6 +204,8 @@ namespace Shop.Database.Migrations
 
                     b.Property<string>("State");
 
+                    b.Property<int>("Status");
+
                     b.Property<string>("StripeReference");
 
                     b.Property<string>("ZipCode");

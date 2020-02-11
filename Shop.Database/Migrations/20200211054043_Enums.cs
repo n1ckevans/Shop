@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shop.Database.Migrations
 {
-    public partial class OrderStock : Migration
+    public partial class Enums : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,7 +63,8 @@ namespace Shop.Database.Migrations
                     Address2 = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<string>(nullable: true)
+                    ZipCode = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -237,6 +238,28 @@ namespace Shop.Database.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StockOnHold",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SessionId = table.Column<string>(nullable: true),
+                    StockId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Expiration = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockOnHold", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockOnHold_Stock_StockId",
+                        column: x => x.StockId,
+                        principalTable: "Stock",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -285,6 +308,11 @@ namespace Shop.Database.Migrations
                 name: "IX_Stock_ProductId",
                 table: "Stock",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockOnHold_StockId",
+                table: "StockOnHold",
+                column: "StockId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -306,6 +334,9 @@ namespace Shop.Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderStocks");
+
+            migrationBuilder.DropTable(
+                name: "StockOnHold");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
