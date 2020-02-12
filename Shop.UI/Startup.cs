@@ -1,21 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shop.Application.Infrastructure;
-using Shop.Application.UsersAdmin;
+using Shop.Domain.Infrastructure;
 using Shop.Database;
 using Shop.UI.Infrastructure;
 using Stripe;
+using Shop.Application.Cart;
 
 namespace Shop.UI
 {
@@ -80,6 +76,7 @@ namespace Shop.UI
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
+            services.AddTransient<IStockManager, StockManager>();
             services.AddScoped<ISessionManager, SessionManager>();
            
             StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);

@@ -5,60 +5,7 @@
 
 <div class="container">
     <div class="columns">
-        <div class="column is-6 is-offet-3">
-
-            @foreach (var product in Model.Cart)
-            {
-                <div class="level" id="product-@product.StockId">
-                    <div class="level-item">
-                        <figure class="image is-128x128">
-                            <img src="~/images/tata.jpg" />
-                        </figure>
-                    </div>
-                    <div class="level-item">
-                        <p class="title">@product.Name</p>
-                    </div>
-                    <div class="level-item">
-                        <div class="columns is-gapless has-text-centered is-mobile is-multiline">
-                            <div class="column is-4">
-                                <button class="button" type="button" 
-                                        onclick="removeOneFromCart(event)" 
-                                        data-stock-id="@product.StockId">
-                                    -
-                                </button>
-                            </div>
-                            <div class="column is-4 align-self-center" 
-                                 id="stock-@product.StockId">
-                                 @product.Quantity
-                            </div>
-                            <div class="column is-4">
-                                <button class="button" type="button"
-                                        onclick="addOneToCart(event)" 
-                                        data-stock-id="@product.StockId">
-                                    +
-                                </button>
-                            </div>
-                            <div class="column is-12">
-                                <a class="has-text-danger"
-                                   onclick="removeAllFromCart(event)" 
-                                   data-stock-id="@product.StockId">
-                                Remove</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="level-item">
-                        <p>Price: @product.Price</p>
-                    </div>
-                </div>
-            }
-
-            <div class="has-text-right">
-                <a asp-page="/Index" class="button">Continue Shopping</a>
-                <a asp-page="/Checkout/CustomerInformation" class="button is-success">Checkout</a>
-            </div>
-
-
-        </div>
+        <partial name="_CartPartial" model="@Model.Cart"/>
     </div>
 </div>
 
@@ -72,12 +19,7 @@
 
             axios.post("/Cart/AddOne/" + stockId)
                 .then(res => {
-                    var id = "stock-" + stockId;
-                    var el = document.getElementById(id);
-
-                    var qty = parseInt(el.innerText);
-
-                    el.innerText = (qty + 1);
+                    updateCart();
                 })
                 .catch(err => {
                     alert(err.error);
@@ -86,34 +28,48 @@
 
         var removeOneFromCart = function (e) {
             var stockId = e.target.dataset.stockId;
-
-            axios.post("/Cart/RemoveOne/" + stockId)
-                .then(res => {
-                    var id = "stock-" + stockId;
-                    var el = document.getElementById(id);
-
-                    var qty = parseInt(el.innerText);
-
-                    el.innerText = (qty - 1);
-                })
-                .catch(err => {
-                    alert(err.error);
-                });
+            removeFromCart(stockId, 1);
         } 
 
         var removeAllFromCart = function (e) {
             var stockId = e.target.dataset.stockId;
+            var id = "stock-qty-" + stockId;
+            var el = document.getElementById(id);
+            var qty = parseInt(el.innerText);
+            removeFromCart(stockId, qty);
+        }
 
-            axios.post("/Cart/RemoveAll/" + stockId)
+        var removeFromCart = function (stockId, qty) {
+            axios.post("/Cart/Remove/" + stockId + '/' + qty)
                 .then(res => {
-                    var id = "product-" + stockId;
-                    var el = document.getElementById(id);
-                    el.outerHTML = "";
+                    updateCart();
                 })
                 .catch(err => {
                     alert(err.error);
                 });
         }
+
+        var updateCart = function () {
+            axios.get('/Cart/GetCartComponent')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-nav');
+
+                    el.outerHTML = html;
+                })
+        }
+
+        var updateCart = function () {
+            axios.get('/Cart/GetCartMain')
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-main');
+
+                    el.outerHTML = html;
+                })
+        }
+
+
 
     </script>
 }

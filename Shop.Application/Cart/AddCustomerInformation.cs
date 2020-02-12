@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Shop.Domain.Infrastructure;
 using Shop.Domain.Models;
-using Shop.Application.Infrastructure;
+
 
 namespace Shop.Application.Cart
 {

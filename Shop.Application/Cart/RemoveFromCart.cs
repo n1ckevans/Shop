@@ -1,4 +1,4 @@
-﻿using Shop.Application.Infrastructure;
+﻿using Shop.Domain.Infrastructure;
 using Shop.Database;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,52 +8,33 @@ namespace Shop.Application.Cart
     public class RemoveFromCart
     {
         private ISessionManager _sessionManager;
-        private ApplicationDbContext _ctx;
+        private IStockManager _stockManager;
 
-        public RemoveFromCart(ISessionManager sessionManager, ApplicationDbContext ctx)
+        public RemoveFromCart(ISessionManager sessionManager, IStockManager stockManager)
         {
             _sessionManager = sessionManager;
-            _ctx = ctx;
+            _stockManager = stockManager;
         }
 
         public class Request
         {
             public int StockId { get; set; }
             public int Quantity { get; set; }
-            public bool All { get; set; }
         }
 
         public async Task<bool> Do(Request request)
         {
-
-            var stockOnHold = _ctx.StockOnHold
-                   .FirstOrDefault(x => x.StockId == request.StockId
-                   && x.SessionId == _sessionManager.GetId());
-
-            var stock = _ctx.Stock.FirstOrDefault(x => x.Id == request.StockId);
-
-            if (request.All)
+            if(request.Quantity <= 0)
             {
-                stock.Quantity += stockOnHold.Quantity;
-                _sessionManager.RemoveProduct(request.StockId, stockOnHold.Quantity);
-                stockOnHold.Quantity = 0;
-            }
-            else
-            {
-                stock.Quantity += request.Quantity;
-                stockOnHold.Quantity -= request.Quantity;
-                _sessionManager.RemoveProduct(request.StockId, request.Quantity);
+                return false;
             }
 
-            if(stockOnHold.Quantity <= 0)
-            {
-                _ctx.Remove(stockOnHold);
-            }
+            await _stockManager
+                .RemoveStockFromHold(request.StockId, request.Quantity, _sessionManager.GetId());
 
-            await _ctx.SaveChangesAsync();
-
+           _sessionManager.RemoveProduct(request.StockId, request.Quantity);
+         
             return true;
         }
-
     }
 }
