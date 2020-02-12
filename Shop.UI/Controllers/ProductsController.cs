@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.ProductsAdmin;
-using Shop.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shop.UI.Controllers
@@ -15,14 +10,6 @@ namespace Shop.UI.Controllers
     [Authorize(Policy = "Manager")]
     public class ProductsController : Controller
     {
-        private ApplicationDbContext _ctx;
-
-        public ProductsController(ApplicationDbContext ctx)
-        {
-            _ctx = ctx;
-        }
-
-
 
         [HttpGet("")]
         public IActionResult GetProducts(
@@ -52,7 +39,5 @@ namespace Shop.UI.Controllers
             [FromBody] UpdateProduct.Request request,
             [FromServices] UpdateProduct updateProduct) => 
                 Ok(await updateProduct.DoAsync(request));
-
-
     }
 }

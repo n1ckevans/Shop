@@ -1,29 +1,25 @@
-﻿using Shop.Database;
-using System.Collections.Generic;
+﻿using Shop.Domain.Infrastructure;
 using System.Linq;
 
 namespace Shop.Application.ProductsAdmin
 {
     public class GetProduct
     {
-        private ApplicationDbContext _ctx;
+        private IProductManager _productManager;
 
-        public GetProduct(ApplicationDbContext ctx)
+        public GetProduct(IProductManager productManager)
         {
-            _ctx = ctx;
+            _productManager = productManager;
         }
 
-        public ProductViewModel Do(int Id) =>
-            _ctx.Products.Where(x => x.Id == Id).Select(x => new ProductViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Price = x.Price,
-            })
-            .FirstOrDefault();
-
-
+        public ProductViewModel Do(int id) =>
+           _productManager.GetProductById(id, x => new ProductViewModel
+           {
+               Id = x.Id,
+               Name = x.Name,
+               Description = x.Description,
+               Price = x.Price,
+           });
 
         public class ProductViewModel
         {
@@ -33,6 +29,4 @@ namespace Shop.Application.ProductsAdmin
             public decimal Price { get; set; }
         }
     }
-
 }
-

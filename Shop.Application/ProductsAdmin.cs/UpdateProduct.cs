@@ -1,32 +1,28 @@
-﻿using Shop.Database;
-using Shop.Domain.Models;
-using System;
-using System.Collections.Generic;
+﻿using Shop.Domain.Infrastructure;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shop.Application.ProductsAdmin
 {
     public class UpdateProduct
     {
-        private ApplicationDbContext _context;
+        private IProductManager _productManager;
 
-        public UpdateProduct(ApplicationDbContext context)
+        public UpdateProduct(IProductManager productManager)
         {
-            _context = context;
+            _productManager = productManager;
         }
 
         public async Task<Response> DoAsync(Request request)
         {
-            var product = _context.Products.FirstOrDefault(x => x.Id == request.Id);
+            var product = _productManager.GetProductById(request.Id, x => x);
 
             product.Name = request.Name;
             product.Description = request.Description;
             product.Price = request.Price;
 
+            await _productManager.UpdateProduct(product);
 
-            await _context.SaveChangesAsync();
             return new Response
             {
                 Id = product.Id,

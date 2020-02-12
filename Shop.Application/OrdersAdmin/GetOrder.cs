@@ -1,21 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shop.Database;
-using System;
+using Shop.Domain.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Shop.Application.OrdersAdmin
 {
     public class GetOrder
     {
-        private ApplicationDbContext _ctx;
+        private IOrderManager _orderManager;
 
-        public GetOrder(ApplicationDbContext ctx)
+        public GetOrder(IOrderManager orderManager)
         {
-            _ctx = ctx;
+            _orderManager = orderManager;
         }
 
         public class Response
@@ -48,12 +44,7 @@ namespace Shop.Application.OrdersAdmin
         }
 
         public Response Do(int id) =>
-            _ctx.Orders
-                .Where(x => x.Id == id)
-                .Include(x => x.OrderStocks)
-                .ThenInclude(x => x.Stock)
-                .ThenInclude(x => x.Product)
-                .Select(x => new Response
+            _orderManager.GetOrderById(id, x => new Response
                 {
                     Id = x.Id,
                     OrderRef = x.OrderRef,
@@ -74,10 +65,9 @@ namespace Shop.Application.OrdersAdmin
                         Description = y.Stock.Product.Description,
                         Quantity = y.Quantity,
                         StockDescription = y.Stock.Description,
-                    
-                    }),
-                })
-                .FirstOrDefault();
 
+                    }),
+                }
+        );
     }
 }

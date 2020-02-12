@@ -16,12 +16,10 @@ namespace Shop.UI.Pages.Checkout
     public class PaymentModel : PageModel
     {
         public string PublicKey { get; }
-        private ApplicationDbContext _ctx;
 
-        public PaymentModel(IConfiguration configuration, ApplicationDbContext ctx)
+        public PaymentModel(IConfiguration configuration)
         {
             PublicKey = configuration["Stripe:PublicKey"].ToString();
-            _ctx = ctx;
         }
 
         public IActionResult OnGet(
@@ -42,7 +40,8 @@ namespace Shop.UI.Pages.Checkout
         public async Task<IActionResult> OnPost(
             string stripeEmail, 
             string stripeToken,
-            [FromServices] GetOrderCart getOrder)
+            [FromServices] GetOrderCart getOrder, 
+            [FromServices] CreateOrder createOrder)
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
@@ -65,7 +64,7 @@ namespace Shop.UI.Pages.Checkout
 
             var sessionId = HttpContext.Session.Id;
 
-            await new CreateOrder(_ctx).Do(new CreateOrder.Request
+            await createOrder.Do(new CreateOrder.Request
             {
                 StripeReference = charge.Id,
                 SessionId = sessionId,
