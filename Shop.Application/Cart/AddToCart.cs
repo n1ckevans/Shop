@@ -38,13 +38,22 @@ namespace Shop.Application.Cart
                 return false;
             }
 
-            _ctx.StockOnHold.Add(new StockOnHold
+            if(stockOnHold.Any(x => x.StockId == request.StockId))
             {
-                StockId = stockToHold.Id,
-                SessionId = _session.Id,
-                Quantity = request.Quantity,
-                Expiration = DateTime.Now.AddMinutes(20)
-            });
+                stockOnHold.Find(x => x.StockId == request.StockId).Quantity += request.Quantity;
+            }
+            else
+            {
+                _ctx.StockOnHold.Add(new StockOnHold
+                {
+                    StockId = stockToHold.Id,
+                    SessionId = _session.Id,
+                    Quantity = request.Quantity,
+                    Expiration = DateTime.Now.AddMinutes(20)
+                });
+            }
+
+        
 
             stockToHold.Quantity -= request.Quantity;
 

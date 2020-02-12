@@ -30,12 +30,12 @@
         updateStock() {
             this.loading = true;
             axios.put('/stocks', {
-                stock: this.selectProduct.stock.map(x => {
+                stock: this.selectedProduct.stock.map(x => {
                     return {
                         id: x.id,
                         description: x.description,
                         quantity: x.quantity,
-                        productId: this.selectProduct.id
+                        productId: this.selectedProduct.id
                     };
                 })
             })
