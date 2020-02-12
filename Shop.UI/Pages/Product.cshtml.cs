@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.Database;
 using Shop.Application.Products;
-using Microsoft.AspNetCore.Http;
 using Shop.Application.Cart;
 
 namespace Shop.UI.Pages
@@ -40,9 +36,10 @@ namespace Shop.UI.Pages
             }
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(
+            [FromServices] AddToCart addToCart)
         {
-            var stockAdded = await new AddToCart(HttpContext.Session, _ctx).Do(CartViewModel);
+            var stockAdded = await addToCart.Do(CartViewModel);
 
             if (stockAdded)
                 return RedirectToPage("Cart");
