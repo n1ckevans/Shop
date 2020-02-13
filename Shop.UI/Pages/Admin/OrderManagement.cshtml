@@ -1,6 +1,7 @@
 ﻿@page
 @model Shop.UI.Pages.Admin.OrdersModel
 @{
+    ViewData["Title"] = "Nick's Skate Shop";
 }
 
 <div id="app">
@@ -14,7 +15,7 @@
         </div>
         <div v-if="orders.length > 0">
             <p v-for="order in orders">
-                <a @@click="selectOrder(order.id)">{{order.orderRef}} - {{order.email}}</a>
+                <a @@click="selectOrder(order.id)">Order# {{order.orderRef}} - Customer: {{order.email}}</a>
             </p>
         </div>
     </div>
@@ -22,8 +23,8 @@
         <p>
             <button @@click="exitOrder()">Exit</button>
         </p>
-        <p class="title">{{selectedOrder.orderRef}}</p>
-        <p class="subtitle">{{selectedOrder.email}}</p>
+        <p class="title">Order# {{selectedOrder.orderRef}}</p>
+        <p class="subtitle">Customer: {{selectedOrder.email}}</p>
         <button @@click="updateOrder()">Process</button>
     </div>
 </div>

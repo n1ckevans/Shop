@@ -1,11 +1,11 @@
 ﻿@page
 @model Shop.UI.Pages.CartModel
 @{
+    ViewData["Title"] = "Nick's Skate Shop";
 }
-
 <div class="container">
     <div class="columns">
-        <partial name="_CartPartial" model="@Model.Cart"/>
+        <partial name="_CartPartial" model="@Model.Cart" />
     </div>
 </div>
 
@@ -24,12 +24,12 @@
                 .catch(err => {
                     alert(err.error);
                 });
-        }    
+        }
 
         var removeOneFromCart = function (e) {
             var stockId = e.target.dataset.stockId;
             removeFromCart(stockId, 1);
-        } 
+        }
 
         var removeAllFromCart = function (e) {
             var stockId = e.target.dataset.stockId;

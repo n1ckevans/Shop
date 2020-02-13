@@ -240,6 +240,8 @@ namespace Shop.Database.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("PhotoUrl");
+
                     b.Property<decimal>("Price");
 
                     b.HasKey("Id");

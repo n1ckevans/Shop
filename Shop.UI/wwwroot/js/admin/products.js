@@ -9,6 +9,7 @@
                 name: "Product Name",
                 description: "Product Description",
                 price: 420,
+                photoUrl: ""
             },
             products: [],
     },
@@ -24,9 +25,10 @@
                     var product = res.data;
                     this.productModel = {
                         id: product.id,
-                        name: product.id,
+                        name: product.name,
                         description: product.description,
                         price: product.price,
+                        photoUrl: product.photoUrl
                     };
                 })
                 .catch(err => {

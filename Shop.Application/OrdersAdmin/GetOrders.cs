@@ -20,6 +20,7 @@ namespace Shop.Application.OrdersAdmin
             public int Id { get; set; }
             public string OrderRef { get; set; }
             public string Email { get; set; }
+            public string FirstName { get; set; }
         }
 
         public IEnumerable<Response> Do(int status) =>
@@ -28,7 +29,8 @@ namespace Shop.Application.OrdersAdmin
                {
                    Id = x.Id,
                    OrderRef = x.OrderRef,
-                   Email = x.Email
+                   Email = x.Email,
+                   FirstName = x.FirstName
                });
     }
 }

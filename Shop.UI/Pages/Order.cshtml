@@ -1,14 +1,15 @@
 ﻿@page "{reference}"
 @model Shop.UI.Pages.OrderModel
 @{
+    ViewData["Title"] = "Nick's Skate Shop";
 }
 
 <div>
     <h1>
-    @Model.Order.OrderRef
+        @Model.Order.OrderRef
     </h1>
 
-    @foreach(var product in Model.Order.Products)
+    @foreach (var product in Model.Order.Products)
     {
         <div>
             @product.Name  - @product.Name  - @product.Quantity - @product.Price

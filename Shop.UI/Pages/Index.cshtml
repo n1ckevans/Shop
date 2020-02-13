@@ -1,20 +1,14 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Nick's Skate Shop";
 }
-
-
 
 <div class="section">
 
     <div class="columns is-multiline is-mobile">
         @{
-            for(int i = 0; i < 5; i++)
-            {
-
-            
-                foreach (var p in Model.Products)
+              foreach (var p in Model.Products)
                 {
 
                     <div class="column is-3-desktop is-4-tablet is-6-mobile">
@@ -22,7 +16,7 @@
                             <div class="card" >
                                 <div class="card-image">
                                     <figure class="image is-4by3">
-                                        <img src="~/images/tata.jpg" alt="1956 Chevy Bel Air" />
+                                        <img src="@p.PhotoUrl" />
                                     </figure>
                                 </div>
                                 <div class="card-content">
@@ -62,7 +56,6 @@
                     </div>
 
                 }
-            }
         }
     </div>
 

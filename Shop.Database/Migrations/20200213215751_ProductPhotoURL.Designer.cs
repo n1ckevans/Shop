@@ -10,8 +10,8 @@ using Shop.Database;
 namespace Shop.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200213182401_PhotoUrl")]
-    partial class PhotoUrl
+    [Migration("20200213215751_ProductPhotoURL")]
+    partial class ProductPhotoURL
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,6 +241,8 @@ namespace Shop.Database.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("PhotoUrl");
 
                     b.Property<decimal>("Price");
 
