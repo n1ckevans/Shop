@@ -28,6 +28,7 @@ namespace Shop.Application.Cart
             public int Quantity { get; set; }
             public int StockId { get; set; }
             public int Price { get; set; }
+            public string PhotoUrl { get; set; }
         }
 
         public class CustomerInformation
@@ -51,7 +52,8 @@ namespace Shop.Application.Cart
                     ProductId = x.ProductId,
                     StockId = x.StockId,
                     Price = (int)(x.Price * 100),
-                    Quantity = x.Quantity
+                    Quantity = x.Quantity,
+                    PhotoUrl = x.PhotoUrl
                 });
 
             var customerInformation = _sessionManager.GetCustomerInformation();

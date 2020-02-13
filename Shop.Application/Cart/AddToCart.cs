@@ -43,7 +43,8 @@ namespace Shop.Application.Cart
                 ProductName = stock.Product.Name,
                 StockId = stock.Id,
                 Quantity = request.Quantity,            
-                Price = stock.Product.Price
+                Price = stock.Product.Price,
+                PhotoUrl = stock.Product.PhotoUrl
             };
             
             _sessionManager.AddProduct(cartProduct);

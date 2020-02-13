@@ -41,6 +41,7 @@ namespace Shop.Application.Orders
             public string Price { get; set; }
             public int Quantity { get; set; }
             public string StockDescription { get; set; }
+            public string PhotoUrl { get; set; }
         }
 
         public Response Do(string reference) => 
@@ -66,7 +67,8 @@ namespace Shop.Application.Orders
                     Description = y.Stock.Product.Description,
                     Price = $"$ {y.Stock.Product.Price.ToString("N2")}",
                     Quantity = y.Quantity,
-                    StockDescription = y.Stock.Description
+                    StockDescription = y.Stock.Description,
+                    PhotoUrl = y.Stock.Product.PhotoUrl
                 }),
 
                 TotalPrice = order.OrderStocks.Sum(y => y.Stock.Product.Price).ToString("N2")

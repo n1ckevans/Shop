@@ -21,6 +21,7 @@ namespace Shop.Application.ProductsAdmin
             product.Name = request.Name;
             product.Description = request.Description;
             product.Price = request.Price;
+            product.PhotoUrl = request.PhotoUrl;
 
             await _productManager.UpdateProduct(product);
 
@@ -29,7 +30,8 @@ namespace Shop.Application.ProductsAdmin
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Price = product.Price
+                Price = product.Price,
+                PhotoUrl = product.PhotoUrl
             };
         }
 
@@ -39,6 +41,7 @@ namespace Shop.Application.ProductsAdmin
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Price { get; set; }
+            public string PhotoUrl { get; set; }
         }
 
         public class Response
@@ -47,6 +50,7 @@ namespace Shop.Application.ProductsAdmin
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Price { get; set; }
+            public string PhotoUrl { get; set; }
         }
 
 

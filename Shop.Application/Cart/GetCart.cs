@@ -22,6 +22,7 @@ namespace Shop.Application.Cart
             public decimal RealPrice { get; set; }
             public int Quantity { get; set; }
             public int StockId { get; set; }
+            public string PhotoUrl { get; set; }
         }
 
         public IEnumerable<Response> Do()
@@ -33,7 +34,8 @@ namespace Shop.Application.Cart
                     Price = x.Price.GetPriceString(),
                     RealPrice = x.Price,
                     StockId = x.StockId,
-                    Quantity = x.Quantity
+                    Quantity = x.Quantity,
+                    PhotoUrl = x.PhotoUrl
                 });
         }
     }

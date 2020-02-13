@@ -20,6 +20,7 @@ namespace Shop.Application.ProductsAdmin
                Name = x.Name,
                Description = x.Description,
                Price = x.Price,
+               PhotoUrl = x.PhotoUrl
            });
 
         public class ProductViewModel
@@ -28,6 +29,7 @@ namespace Shop.Application.ProductsAdmin
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Price { get; set; }
+            public string PhotoUrl { get; set; }
         }
     }
 }

@@ -39,6 +39,7 @@ namespace Shop.Application.OrdersAdmin
             public string Name { get; set; }
             public string Description { get; set; }
             public int Quantity { get; set; }
+            public string PhotoUrl { get; set; }
             public string StockDescription { get; set; }
 
         }
@@ -65,7 +66,7 @@ namespace Shop.Application.OrdersAdmin
                         Description = y.Stock.Product.Description,
                         Quantity = y.Quantity,
                         StockDescription = y.Stock.Description,
-
+                        PhotoUrl = y.Stock.Product.PhotoUrl
                     }),
                 }
         );

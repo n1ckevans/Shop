@@ -27,6 +27,7 @@ namespace Shop.Application.Products
             {
                 Name = x.Name,
                 Description = x.Description,
+                PhotoUrl = x.PhotoUrl,
                 Price = x.Price.GetPriceString(),
                 Stock = x.Stock.Select(y => new StockViewModel
                 {
@@ -43,6 +44,7 @@ namespace Shop.Application.Products
             public string Name { get; set; }
             public string Description { get; set; }
             public string Price { get; set; }
+            public string PhotoUrl { get; set; }
             public IEnumerable<StockViewModel> Stock { get; set; }
         }
 

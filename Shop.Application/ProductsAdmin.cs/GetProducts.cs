@@ -19,6 +19,7 @@ namespace Shop.Application.ProductsAdmin
                 Id = x.Id,
                 Name = x.Name,
                 Price = x.Price,
+                PhotoUrl = x.PhotoUrl
             });
 
         public class ProductViewModel
@@ -26,6 +27,7 @@ namespace Shop.Application.ProductsAdmin
             public int Id { get; set; }
             public string Name { get; set; }
             public decimal Price { get; set; }
+            public string PhotoUrl { get; set; }
         }
     }
 }
