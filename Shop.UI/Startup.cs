@@ -12,6 +12,7 @@ using Shop.Domain.Infrastructure;
 using Shop.UI.Infrastructure;
 using Stripe;
 using System;
+using FluentValidation.AspNetCore;
 
 namespace Shop.UI
 {
@@ -68,14 +69,16 @@ namespace Shop.UI
                     options.Conventions.AuthorizeFolder("/Admin");
                     options.Conventions.AuthorizePage("/Admin/ConfigureUsers", "Admin");
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
+       
 
             services.AddSession(options => {
                 options.Cookie.Name = "Cart";
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 
             services.AddApplicationServices();
         }
