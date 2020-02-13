@@ -7,11 +7,39 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Stripe.net" Version="34.20.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+    <PackageReference Include="Stripe.net" Version="28.8.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shop.Application\Shop.Application.csproj" />
+    <ProjectReference Include="..\Shop.Database\Shop.Database.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Context Update="Pages\Admin\_AdminLayout.cshtml">
+      <Pack>$(IncludeRazorContentInPack</Pack>
+    </Context>
+    <Context Update="Pages\Admin\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack</Pack>
+    </Context>
+    <Context Update="Pages\Admin\ConfigureUsers.cshtml">
+      <Pack>$(IncludeRazorContentInPack</Pack>
+    </Context>
+    <Context Update="Pages\Admin\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack</Pack>
+    </Context>
+    <Context Update="Pages\Admin\OrderManagement.cshtml">
+      <Pack>$(IncludeRazorContentInPack</Pack>
+    </Context>
+    <Context Update="Pages\Admin\Stock.cshtml">
+      <Pack>$(IncludeRazorContentInPack</Pack>
+    </Context>
+  </ItemGroup>
+  
 
 </Project>

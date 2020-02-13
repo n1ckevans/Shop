@@ -5,6 +5,7 @@ using Shop.Domain.Infrastructure;
 
 namespace Shop.Application.OrdersAdmin
 {
+    [Service]
     public class GetOrders
     {
         private IOrderManager _orderManager;

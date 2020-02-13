@@ -5,22 +5,23 @@ using System.Threading.Tasks;
 
 namespace Shop.Application.Products
 {
+    [Service]
     public class GetProduct
     {
-        private IStockManager _sotckManager;
+        private IStockManager _stockManager;
         private IProductManager _productManager;
 
         public GetProduct(        
             IStockManager stockManager,
             IProductManager productManager)
         {
-            _sotckManager = stockManager;
+            _stockManager = stockManager;
             _productManager = productManager;
         }
 
         public async Task<ProductViewModel> Do(string name)
         {
-            await _sotckManager.RetrieveExpiredStockOnHold();
+            await _stockManager.RetrieveExpiredStockOnHold();
 
             return _productManager.GetProductByName(name, x => new ProductViewModel
             {

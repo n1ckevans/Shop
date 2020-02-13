@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,11 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shop.Domain.Infrastructure;
+using Shop.Application.Cart;
 using Shop.Database;
+using Shop.Domain.Infrastructure;
 using Shop.UI.Infrastructure;
 using Stripe;
-using Shop.Application.Cart;
+using System;
 
 namespace Shop.UI
 {
@@ -20,18 +20,17 @@ namespace Shop.UI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+               
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -76,13 +75,9 @@ namespace Shop.UI
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            services.AddTransient<IStockManager, StockManager>();
-            services.AddScoped<ISessionManager, SessionManager>();
-           
             StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
 
             services.AddApplicationServices();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

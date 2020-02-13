@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Application.StockAdmin
 {
+    [Service]
     public class CreateStock
     {
         private IStockManager _stockManager;

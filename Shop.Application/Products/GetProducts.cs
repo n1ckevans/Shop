@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.Domain.Infrastructure;
+﻿using Shop.Domain.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Shop.Application.Products
 
 {
+    [Service]
     public class GetProducts
     {
         private IProductManager _productManager;

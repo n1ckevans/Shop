@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Shop.Application.Cart;
 using Shop.Application.Orders;
-using Shop.Database;
+using Shop.Domain.Infrastructure;
 using Stripe;
 using GetOrderCart = Shop.Application.Cart.GetOrder;
 
@@ -41,7 +39,8 @@ namespace Shop.UI.Pages.Checkout
             string stripeEmail, 
             string stripeToken,
             [FromServices] GetOrderCart getOrder, 
-            [FromServices] CreateOrder createOrder)
+            [FromServices] CreateOrder createOrder,
+            [FromServices] ISessionManager sessionManager)
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
@@ -59,7 +58,7 @@ namespace Shop.UI.Pages.Checkout
                 Amount = cartOrder.GetTotalCharge(),
                 Description = "Shop Purchase",
                 Currency = "usd",
-                Customer = customer.Id
+                CustomerId = customer.Id
             });
 
             var sessionId = HttpContext.Session.Id;
@@ -84,6 +83,8 @@ namespace Shop.UI.Pages.Checkout
                     Quantity = x.Quantity
                 }).ToList()
             });
+
+            sessionManager.ClearCart();
 
             return RedirectToPage("/Index");
         }

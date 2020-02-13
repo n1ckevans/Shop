@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Shop.Application.Cart
+namespace Shop.Database
 {
     public class StockManager : IStockManager
     {
