@@ -27,15 +27,15 @@ namespace Shop.UI.Pages.Checkout
                 {
                     CustomerInformation = new AddCustomerInformation.Request
                     {
-                        FirstName = "Test",
-                        LastName = "Test",
-                        Email = "Test@Test.com",
+                        FirstName = "First",
+                        LastName = "Last",
+                        Email = "First@Test.com",
                         PhoneNumber = "5555555555",
                         Address1 = "123 Fake Street",
-                        Address2 = "Apt D",
+                        Address2 = "Apartment A",
                         City = "Beverly Hills",
                         State = "CA",
-                        ZipCode = "90501",
+                        ZipCode = "90210",
                     };
                 }
                 return Page();
