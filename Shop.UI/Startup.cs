@@ -43,7 +43,7 @@ namespace Shop.UI
                         options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             else
                 services.AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlServer("Data Source=localdatabase.db"));
+                        options.UseSqlServer(Configuration["DefaultConnection"]));
 
             // Automatically perform database migration
             services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
